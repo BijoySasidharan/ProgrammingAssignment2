@@ -1,6 +1,11 @@
 ## This function creates a special "matrix" object that can cache its inverse.
 
 
+
+## Creates cacheable matrix for inputting to
+## cacheSolve() function which sets and gets 
+## the cached values
+
 makeCacheMatrix <- function(x = matrix()) {
   
   #Is the input a matrix?
@@ -26,6 +31,8 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 ## Compute the inverse of a cacheable matrix returned by makeCacheMatrix()
+## If the inverse has already been calculated and there's no change in the matrix
+## then the cacheSolve() returns the cached inverse
 
 cacheSolve<- function(cachemat, ...) {
 
@@ -35,6 +42,8 @@ cacheSolve<- function(cachemat, ...) {
     message("getting cached inverse matrix")
     return(inversemat)
   }
+  # Creating an inverted matrix in case
+  # there's no cached matrix available
   data <- cachemat$get()
   inversemat <- solve(data, ...)
   cachemat$setinverse(inversemat)
